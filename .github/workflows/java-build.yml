@@ -1,4 +1,4 @@
-name: Java CI
+name: CI/CD Workflow
 
 on:
   push:
@@ -9,19 +9,23 @@ on:
       - main
 
 jobs:
-  build:
+  # Continuous Integration
+  ci:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code from the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK 23
+      # Step 2: Set up JDK
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: '23'
-          distribution: 'adoptopenjdk'
+          java-version: '21'
+          distribution: 'adoptium'
 
+      # Step 3: Cache Maven dependencies to speed up builds
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -30,8 +34,39 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Step 4: Build the project using Maven
       - name: Build with Maven
         run: mvn clean install --no-transfer-progress
 
+      # Step 5: Run the unit tests
       - name: Run tests
         run: mvn test
+
+  # Continuous Deployment Job
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci  # CD will only run if CI passes
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up JDK for deployment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'adoptium'
+
+      # Step 3: Build the project using Maven
+      - name: Build with Maven
+        run: mvn clean install --no-transfer-progress
+
+      # Step 4: Deploy to Azure Web App (later)
+      #- name: Deploy to Azure Web App
+       # uses: Azure/webapps-deploy@v2
+        # with:
+          # app-name: ${{ secrets.AZURE_WEBAPP_NAME }}  # Azure Web App name (set this in GitHub Secrets)
+          # publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure publish profile (set this in GitHub Secrets)
+          # package: 'target/*.jar'  # Path to the generated JAR file
