@@ -6,8 +6,8 @@ CREATE TABLE Users (
                        password VARCHAR(255) NOT NULL
 );
 
--- 'WishLists' table to store wish lists belonging to users
-CREATE TABLE WishLists (
+-- 'WishList' table to store wish lists belonging to users
+CREATE TABLE WishList (
                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
                            user_id BIGINT NOT NULL,
                            title VARCHAR(255) NOT NULL,
@@ -15,8 +15,8 @@ CREATE TABLE WishLists (
                            FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
--- 'Items' table to store items on the wish lists
-CREATE TABLE Items (
+-- 'WishItem' table to store items in the wish lists
+CREATE TABLE WishItem (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        wish_list_id BIGINT NOT NULL,
                        name VARCHAR(255) NOT NULL,

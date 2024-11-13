@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Confirm Deletion</title>
 </head>
 <body>
-
+<h2>Are you sure you want to delete your account?</h2>
+<form action="/users/{id}/delete" method="POST">
+    <button type="submit">Yes, Delete My Account</button>
+</form>
+<a href="/users/{id}">Cancel</a>
 </body>
 </html>

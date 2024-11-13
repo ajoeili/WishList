@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Wishlists</title>
+</head>
+<body>
+<h2>Your Wishlists</h2>
+<ul>
+    <li th:each="wishlist : ${wishlists}">
+        <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" th:text="${wishlist.name}"></a>
+    </li>
+</ul>
+
+<a href="/wishlists/create">Create New Wishlist</a>
+</body>
+</html>

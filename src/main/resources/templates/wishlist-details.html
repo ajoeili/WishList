@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wishlist Details</title>
+</head>
+<body>
+<h2>Wishlist: <span th:text="${wishlist.name}"></span></h2>
+<p th:text="${wishlist.description}"></p>
+
+<h3>Items in this Wishlist:</h3>
+<ul>
+    <li th:each="item : ${items}">
+        <span th:text="${item.name}"></span> -
+        <span th:text="${item.description}"></span> -
+        <span th:text="${item.price}"></span>
+        <form th:action="@{/wishlists/{wishlistId}/items/{itemId}(wishlistId=${wishlist.id}, itemId=${item.id})}" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+
+<a href="/wishlists/user/{userId}">Back to Wishlists</a>
+</body>
+</html>
