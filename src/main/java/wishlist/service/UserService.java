@@ -24,10 +24,7 @@ public class UserService {
 
     // Get a user by ID
     public User getUserById(Long userId) {
-        if (userId == null) {
-            throw new UserNotFoundException("User not found");
-        }
-        return userRepository.findById(userId).orElse(null);
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     // Authenticate user by username and password

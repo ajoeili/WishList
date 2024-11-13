@@ -1,30 +1,32 @@
 package wishlist.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+@Table("users")
 public class User {
 
     @Id
-    private Long id; // Primary key
+    private Long userId; // Primary key
 
     private String username;
-    private String password;
     private String email;
+    private String password;
 
     // Standardkonstruktør fordi Spring og JDBC bruger den
     public User() {}
 
-    public User(String username, String password, String email) {
+    public User(String username, String email, String password) {
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     public String getUsername() {
         return username;

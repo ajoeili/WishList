@@ -47,7 +47,7 @@ public class UserController {
     public String loginUser(@ModelAttribute User user, Model model, RedirectAttributes redirectAttributes) {
         try {
             User authenticatedUser = userService.authenticate(user.getUsername(), user.getPassword());
-            redirectAttributes.addAttribute("id", authenticatedUser.getId());
+            redirectAttributes.addAttribute("id", authenticatedUser.getUserId());
             return "redirect:/users/{id}"; // Redirects to user profile
         } catch (UserNotFoundException e) {
             model.addAttribute("message", "User not found, please try again");

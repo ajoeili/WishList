@@ -5,6 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
+@Table("wishitems")
 public class WishItem {
 
     @Id

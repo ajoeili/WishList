@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface WishListRepository extends CrudRepository<WishList, Long> {
-        List<WishList> findByUserId(Long userId);  // Finds all wishlists for a specific user
+        List<WishList> findByUserId(Long userId);
 }
 
 
