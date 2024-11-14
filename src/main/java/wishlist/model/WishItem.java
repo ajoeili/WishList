@@ -1,31 +1,37 @@
 package wishlist.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
-@Table("wishitems")
+@Table("WISHITEMS")
 public class WishItem {
 
     @Id
+    @Column("WISH_ITEM_ID")
     private Long id; // Primary key
 
-    private Long wishListId; // Foreign key
+    @Column("NAME")
     private String name;
+
+    @Column("DESCRIPTION")
     private String description;
+
+    @Column("PRICE")
     private Double price;
-    private List<String> manufacturersLinks;
 
-    public WishItem() {
-    }
+    @Column("WISHLIST_ID")
+    private Long wishListId; // Foreign key
 
-    public WishItem(Long id, String name, String description, Double price, Boolean isReserved, String imageUrl, List<String> manufacturersLinks) {
+    public WishItem() {}
+
+    public WishItem(Long id, String name, String description, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.manufacturersLinks = manufacturersLinks;
     }
 
     public Long getId() {
@@ -34,14 +40,6 @@ public class WishItem {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getWishListId() {
-        return wishListId;
-    }
-
-    public void setWishListId(Long wishListId) {
-        this.wishListId = wishListId;
     }
 
     public String getName() {
@@ -68,11 +66,11 @@ public class WishItem {
         this.price = price;
     }
 
-    public List<String> getManufacturersLinks() {
-        return manufacturersLinks;
+    public Long getWishListId() {
+        return wishListId;
     }
 
-    public void setManufacturersLinks(List<String> manufacturersLinks) {
-        this.manufacturersLinks = manufacturersLinks;
+    public void setWishListId(Long wishlistId) {
+        this.wishListId = wishlistId;
     }
 }

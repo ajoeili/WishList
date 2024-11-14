@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Wishlist Details</title>
 </head>
@@ -19,6 +19,6 @@
     </li>
 </ul>
 
-<a href="/wishlists/user/{userId}">Back to Wishlists</a>
+<a th:href="@{/users/{userId}(userId=${wishlist.userId})}">Back to Wishlists</a>
 </body>
 </html>

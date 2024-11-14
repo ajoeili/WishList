@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Profile</title>
 </head>
 <body>
-<h2>Welcome, <span th:text="${user.username}"></span></h2>
-<p>Email: <span th:text="${user.email}"></span></p>
-<h3>Your Wishlists:</h3>
-<ul>
-    <li th:each="wishlist : ${user.wishlists}">
-        <a th:href="@{/wishlists/{id}(id=${wishlist.id})}" th:text="${wishlist.name}"></a>
-    </li>
-</ul>
-<a href="/users/{id}/edit">Edit Profile</a> |
-<a href="/users/{id}/delete">Delete Account</a>
+<h1>User Profile</h1>
+
+<div>
+    <h2>Welcome, <span th:text="${user.username}"></span>!</h2>
+    <p>Email: <span th:text="${user.email}"></span></p>
+</div>
+
+<div>
+    <h2>Your Wish Lists</h2>
+    <ul>
+        <li th:each="wishList : ${wishLists}">
+            <!-- Each wishlist name is clickable and links to its specific page -->
+            <a th:href="@{/wishlists/{id}(id=${wishList.wishListId})}" th:text="${wishList.name}"></a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

@@ -8,18 +8,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wishlist.exception.InvalidCredentialsException;
 import wishlist.exception.UserNotFoundException;
 import wishlist.model.User;
+import wishlist.model.WishList;
 import wishlist.service.UserService;
+import wishlist.service.WishListService;
+
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
+    private final WishListService wishListService;
 
     // Constructer-based injection
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, WishListService wishListService) {
         this.userService = userService;
+        this.wishListService = wishListService;
     }
 
     // Show the registration form
@@ -36,33 +43,17 @@ public class UserController {
         return "redirect:/users/login"; // Redirects to login page
     }
 
-    // Show login form
-    @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
-        return "login"; // Returns login.html
-    }
-
-    // Handle login submission
-    public String loginUser(@ModelAttribute User user, Model model, RedirectAttributes redirectAttributes) {
-        try {
-            User authenticatedUser = userService.authenticate(user.getUsername(), user.getPassword());
-            redirectAttributes.addAttribute("id", authenticatedUser.getUserId());
-            return "redirect:/users/{id}"; // Redirects to user profile
-        } catch (UserNotFoundException e) {
-            model.addAttribute("message", "User not found, please try again");
-            return "login"; // Returns login.html with error message
-        } catch (InvalidCredentialsException e) {
-            model.addAttribute("message", "Invalid password, please try again");
-            return "login"; // Returns login.html with error message
-        }
-    }
-
     // Show user profile
     @GetMapping("/{id}")
     public String getUserProfile(@PathVariable long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
+
+        List<WishList> wishLists = wishListService.getWishListsByUserId(id);
+
+        model.addAttribute("user", user);
+        model.addAttribute("wishLists", wishLists);
+
         return "profile"; // Returns profile.html
     }
 

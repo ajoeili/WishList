@@ -11,4 +11,3 @@ public interface WishListRepository extends CrudRepository<WishList, Long> {
         List<WishList> findByUserId(Long userId);
 }
 
-

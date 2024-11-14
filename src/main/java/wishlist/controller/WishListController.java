@@ -33,8 +33,8 @@ public class WishListController {
 
     // Handle create wishlist form submission
     @PostMapping("/create")
-    public String createWishList(@ModelAttribute("wishlist") WishList wishList) {
-        wishListService.createWishList(wishList);
+    public String createWishList(@ModelAttribute("wishlist") WishList wishList, long userId) {
+        wishListService.createWishList(wishList, userId);
         return "redirect:/wishlists/user/{userId}"; // Redirects to user's wishlists
     }
 
@@ -92,14 +92,7 @@ public class WishListController {
 
         model.addAttribute("wishlist", wishList);
         model.addAttribute("items", items);
-        return "wishlist-details"; // Returns wishlist-details.html
-    }
 
-    // Display all wishlists for a specific user
-    @GetMapping("/user/{userId}")
-    public String showUserWishLists(@PathVariable long userId, Model model) {
-        List<WishList> wishLists = wishListService.getWishListsByUserId(userId);
-        model.addAttribute("wishlists", wishLists);
-        return "user-wishlists"; // Returns user-wishlists.html
+        return "wishlist-details"; // Returns wishlist-details.html
     }
 }

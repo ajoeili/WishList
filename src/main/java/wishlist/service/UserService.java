@@ -23,23 +23,20 @@ public class UserService {
     }
 
     // Get a user by ID
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+    public User getUserById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     // Authenticate user by username and password
     public User authenticate(String username, String password) {
-        Iterable<User> users = userRepository.findAll();
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                if (user.getPassword().equals(password)) {
-                    return user;
-                } else {
-                    throw new InvalidCredentialsException("Invalid password");
-                }
-            }
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        if (user.getPassword().equals(password)) {
+            return user;
+        } else {
+            throw new InvalidCredentialsException("Invalid password");
         }
-        throw new UserNotFoundException("User not found");
     }
 
     // Update user information
