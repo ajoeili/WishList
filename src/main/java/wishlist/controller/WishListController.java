@@ -11,12 +11,16 @@ import wishlist.model.WishList;
 import wishlist.service.WishListService;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Controller
 @RequestMapping("/wishlists")
 public class WishListController {
 
     private final WishListService wishListService;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class); // Just used this to debug
 
     // Constructor-based injection
     @Autowired
@@ -45,18 +49,21 @@ public class WishListController {
         return "redirect:/wishlists/{wishlistId}"; // Redirects back to the wishlist page
     }
 
-    // Delete item from wishlist
-    @DeleteMapping("/{wishlistId}/items/{itemId}")
+    // Delete an item from wishlist
+    @PostMapping("/{wishlistId}/items/{itemId}/delete")
     public String deleteItemFromWishlist(@PathVariable Long wishlistId, @PathVariable Long itemId, RedirectAttributes redirectAttributes) {
+        log.info("Attempting to delete item with ID {} from wishlist with ID {}", itemId, wishlistId);
+
         try {
             wishListService.deleteItemFromWishlist(wishlistId, itemId);
             redirectAttributes.addAttribute("message", "Item deleted successfully");
-            return "redirect:/wishlists/{wishlistId}";  // Redirect back to the wishlist page
+            return "redirect:/{wishlistId}/" + wishlistId;  // Redirect back to the wishlist page
         } catch (Exception e) {
             redirectAttributes.addAttribute("message", "Error occurred while deleting the item, try again later");
-            return "redirect:/wishlists/{wishlistId}";  // Redirect back to the wishlist page if error occurs
+            return "redirect:/{wishlistId}/" + wishlistId;  // Redirect back to the wishlist page if error occurs
         }
     }
+
 
     // Show delete wishlist form
     @GetMapping("/{wishlistId}/delete")
@@ -75,11 +82,17 @@ public class WishListController {
     @PostMapping("/{wishlistId}/delete")
     public String deleteWishList(@PathVariable long wishlistId, RedirectAttributes redirectAttributes) {
         try {
+
+            WishList wishlist = wishListService.getWishListById(wishlistId);
+            long userId = wishlist.getUserId();
+
             wishListService.deleteWishListById(wishlistId);
-            redirectAttributes.addFlashAttribute("message", "Wishlist deleted successfully.");
+
+            redirectAttributes.addAttribute("message", "Wishlist deleted successfully.");
             return "redirect:/wishlists/user/{userId}"; // Redirect to the user's wishlist page
+
         } catch (WishListNotFoundException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Wishlist not found.");
+            redirectAttributes.addAttribute("errorMessage", "Wishlist not found.");
             return "redirect:/wishlists/user/{userId}"; // Redirect to the user's wishlist page
         }
     }
@@ -89,6 +102,10 @@ public class WishListController {
     public String showWishListDetails(@PathVariable long wishlistId, Model model) {
         WishList wishList = wishListService.getWishListById(wishlistId);
         List<WishItem> items = wishListService.getWishItemsByWishlistId(wishlistId);
+
+        // Debugging
+        System.out.println("Wishlist: " + wishList);
+        System.out.println("Items: " + items);
 
         model.addAttribute("wishlist", wishList);
         model.addAttribute("items", items);

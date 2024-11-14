@@ -13,7 +13,9 @@
         <span th:text="${item.name}"></span> -
         <span th:text="${item.description}"></span> -
         <span th:text="${item.price}"></span>
-        <form th:action="@{/wishlists/{wishlistId}/items/{itemId}(wishlistId=${wishlist.id}, itemId=${item.id})}" method="POST">
+
+        <!-- Delete item form using POST method -->
+        <form th:action="@{/wishlists/{wishlistId}/items/{itemId}/delete(wishlistId=${wishlist.wishListId}, itemId=${item.id})}" method="POST">
             <button type="submit">Delete</button>
         </form>
     </li>
