@@ -42,7 +42,7 @@ public class WishListService {
         WishItem wishItem = wishItemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
-        if (wishItem.getWishListId() == wishListId) {
+        if (wishItem.getWishListId().equals(wishListId)) {
             throw new IllegalArgumentException("Item already exists in wishlist");
         }
 
@@ -66,7 +66,7 @@ public class WishListService {
         WishItem wishItem = wishItemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found"));
 
-        if (wishItem.getWishListId() != wishListId) {
+        if (!wishItem.getWishListId().equals(wishListId)) {
             throw new IllegalArgumentException("Item not found in this wishlist");
         }
 

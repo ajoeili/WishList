@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
         userService.createUser(user);
-        return "redirect:/users/login"; // Redirects to login page
+        return "redirect:/wishlist/login"; // Redirects to login page
     }
 
     // Show user profile
