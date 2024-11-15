@@ -1,0 +1,220 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    /* Flexbox layout */
+    flex-direction: column;
+    /* Column layout for top-to-bottom */
+    justify-content: flex-start;
+    /* Align at the top of the screen */
+    align-items: center;
+    /* Horizontally center content */
+    min-height: 100vh;
+    /* Full viewport height */
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 1200px;
+    /* Centered and limited width */
+}
+
+header h1 {
+    font-size: 3em;
+    color: #444;
+    font-weight: bold;
+}
+
+header h3 {
+    font-size: 1.4em;
+    color: #777;
+    margin-top: 10px;
+}
+
+main {
+    width: 100%;
+    max-width: 800px;
+    /* Centered and with a max width */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+}
+
+.content {
+    margin-bottom: 20px;
+}
+
+.description {
+    margin: 20px 0;
+    text-align: justify;
+    hyphens: auto;
+    word-spacing: 0.5px;
+    letter-spacing: 0.5px;
+}
+
+p {
+    margin: 20px 0;
+    line-height: 1.7;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav li {
+    margin-bottom: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #6c757d;
+    font-weight: normal;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    /* Stack form elements vertically */
+    gap: 15px;
+    /* Adds spacing between elements */
+    margin-top: 20px;
+    align-items: stretch;
+    /* Ensures form elements stretch to full width */
+}
+
+form label {
+    font-size: 1.1em;
+    color: #444;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    /* Make inputs take up the full width */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
+    font-size: 1em;
+    /* Ensure consistent font size */
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+    /* Make the button size consistent with the form */
+    align-self: flex-start;
+    /* Align the button to the left */
+}
+
+form button:hover {
+    background-color: #5a6268;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-top: 2px solid #e0e0e0;
+    color: #888;
+    font-size: 0.9em;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+footer a {
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #007BFF;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    header h3 {
+        font-size: 1.2em;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="number"],
+    form textarea {
+        width: 100%;
+        /* Ensure inputs are fully responsive */
+    }
+
+    form button {
+        width: 100%;
+        /* Ensure button is also responsive */
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 10px;
+        /* Less padding on smaller screens */
+    }
+
+    form label {
+        font-size: 1em;
+    }
+
+    form button {
+        font-size: 1em;
+        /* Adjust button font size on small screens */
+        padding: 8px 16px;
+        /* Slightly smaller button */
+    }
+}

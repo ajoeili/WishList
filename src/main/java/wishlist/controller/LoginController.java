@@ -15,10 +15,6 @@ import wishlist.exception.UserNotFoundException;
 import wishlist.model.User;
 import wishlist.service.UserService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 @Controller
 @RequestMapping("/wishlist")
 public class LoginController {
